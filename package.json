@@ -1,0 +1,46 @@
+{
+  "name": "sky-mixin-s3",
+  "version": "0.0.1",
+  "description": "Panda Sky mixin for the AWS service S3.",
+  "main": "lib/index.js",
+  "scripts": {
+    "prepare": "node_modules/.bin/coffee --compile --transpile --inline-map --output lib/ src/",
+    "postpublish": "(json -f package.json version | xargs -I version git tag -am version version) && git push --tags",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pandastrike/sky-mixin-s3.git"
+  },
+  "keywords": [
+    "AWS",
+    "serverless",
+    "S3",
+    "database"
+  ],
+  "contributors": [
+    {
+      "name": "Dan Yoder",
+      "email": "dan@pandastrike.com"
+    },
+    {
+      "name": "David Harper",
+      "email": "david@pandastrike.com"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pandastrike/sky-mixin-s3/issues"
+  },
+  "homepage": "https://github.com/pandastrike/sky-mixin-s3#readme",
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "coffeescript": "2.0.2",
+    "json": "^9.0.6"
+  },
+  "dependencies": {
+    "fairmont": "2.0.1",
+    "panda-sky-mixin": "file:../panda-sky-mixin"
+  }
+}
