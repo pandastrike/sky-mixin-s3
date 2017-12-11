@@ -1,51 +1,37 @@
 # Panda Sky Mixin: S3
-# This mixin allocates the requested S3 buckets into your CFo stack. Buckets
-# are retained after stack deletion, so here we scan for them in S3 before
-# adding them to the new CFo template.
+# This mixin allocates the requested S3 buckets into your CloudFormation stack. # Buckets are retained after stack deletion, so here we scan for them in S3 before adding them to a new CFo template.
 
-{async, plainText, camelCase, capitalize, empty} = require "fairmont"
-module.exports = async (description) ->
-  {s3} = yield require("../../aws")(description.region)
+import Sundog from "sundog"
+import {cat, plainText, camelCase, capitalize, empty} from "fairmont"
 
-  bucketExists = async (name) ->
+import warningMsg from "./warning-messages"
+
+process = (config) ->
+  {AWS: {S3: {bucketExists}}} = await Sundog config.region
+
+  _exists = (name) ->
     try
-      exists = yield s3.headBucket Bucket: name
-      true
+      await bucketExists name
     catch e
-      switch e.statusCode
-        when 403
-          true
-        when 301
-          console.warn "S3 bucket exists, but is in a Region other than specified in sky.yaml."
-          console.warn "Panda Sky cannot move the bucket.  Please adjust manually and try again, or target the Region the bucket currently occupies."
-        when 404
-          false
-        else
-          throw e
+      warningMsg e
+      throw e
 
-  {buckets, tags} = description
+  # Start by extracting out the S3 Mixin configuration:
+  {env, tags} = config
+  c = config.aws.environments[env].mixins.s3
+  c.tags = cat (c.tags || []), tags
+
+  {buckets, tags} = c
   out = []
-  out.push b for b in buckets when !(yield bucketExists b)
+  out.push b for b in buckets when !(await _exists b)
   out
 
+  # Build out a buckets config array for the CloudFormation template, for
+  # buckets that don't already exist.
   buckets:
     for bucket in out
       name: bucket
       resourceTitle: capitalize camelCase plainText bucket
       tags: tags
 
-
-
-
-
-
-
-
-
-
-process = (config) ->
-  {env} = config
-  c = config.aws.environments[env].s3
-  c = merge c, {tags:config.tags}
-
-export defualt process
+export default process

@@ -3,6 +3,11 @@
   "version": "0.0.1",
   "description": "Panda Sky mixin for the AWS service S3.",
   "main": "lib/index.js",
+  "files": [
+    "lib/",
+    "files/",
+    "LICENSE"
+  ],
   "scripts": {
     "prepare": "node_modules/.bin/coffee --compile --transpile --inline-map --output lib/ src/",
     "postpublish": "(json -f package.json version | xargs -I version git tag -am version version) && git push --tags",
@@ -41,6 +46,8 @@
   },
   "dependencies": {
     "fairmont": "2.0.1",
-    "panda-sky-mixin": "file:../panda-sky-mixin"
+    "panda-serialize": "^0.2.0",
+    "panda-sky-mixin": "file:../panda-sky-mixin",
+    "sundog": "file:../sundog"
   }
 }
