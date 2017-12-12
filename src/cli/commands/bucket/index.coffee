@@ -11,7 +11,7 @@ Bucket = (config, mixinConfig) ->
 
   validateOperation = (name, options) ->
     {buckets} = mixinConfig
-    noBuckets() if empty buckets
+    noBuckets() if !buckets || empty buckets
     badBucket() if name && !options.all && name not in buckets
     if options.all then buckets.sort() else [name]
 
