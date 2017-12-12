@@ -13,7 +13,7 @@ Bucket = (config, mixinConfig) ->
     {buckets} = mixinConfig
     noBuckets() if empty buckets
     badBucket() if name && !options.all && name not in buckets
-    if options.all then buckets else [name]
+    if options.all then buckets.sort() else [name]
 
   ask = (question) ->
     {ask: _ask} = new Interview()
@@ -34,13 +34,13 @@ Bucket = (config, mixinConfig) ->
     names = validateOperation name, options
     await ask emptyQuestion names
     console.error "Emptying bucket(s)..."
-    await bucketEmpty n for n in names
+    await bucketEmpty n for n in names when await bucketExists n
     console.error "\nDone.\n"
 
   ls = ->
-    validateOperation(null, {all: true})
-    console.log "Scanning AWS for mixin buckets..."
-    for b in mixinConfig.buckets.sort()
+    names = validateOperation(null, {all: true})
+    console.log "Scanning AWS for mixin buckets...\n"
+    for b in names
       status = if await bucketExists b then "Ready" else "Not Found"
       console.error "  - #{b} : #{status}"
     console.error "\nDone.\n"
@@ -49,7 +49,7 @@ Bucket = (config, mixinConfig) ->
     names = validateOperation name, options
     await ask deleteQuestion names
     console.error "Deleting bucket(s)..."
-    for n in names
+    for n in names when await bucketExists n
       await bucketEmpty n
       await bucketDel n
     console.error "\nDone.\n"
