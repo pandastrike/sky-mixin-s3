@@ -1,13 +1,9 @@
 Msg = do ->
   emptyDescription = (names) ->
-    msg = "WARNING: You are about to destroy all contents of the S3 bucket(s):\n\n"
+    msg = "WARNING: You are about to destroy all contents of the S3 bucket(s):\n"
     msg += "\n  - #{n}" for n in names
-    msg += """
-
-      This is a destructive operation and cannot be undone.
-
-      Please confirm that you wish to continue. [Y/N]
-    """
+    msg += "\n\nThis is a destructive operation and cannot be undone."
+    msg += "\n\nPlease confirm that you wish to continue. [Y/N]"
 
   emptyQuestion = (names) -> [
     name: "confirm"
@@ -17,14 +13,10 @@ Msg = do ->
 
 
   deleteDescription = (names) ->
-    msg = "WARNING: You are about to delete the S3 bucket(s):\n\n"
+    msg = "WARNING: You are about to delete the S3 bucket(s):\n"
     msg += "\n  - #{n}" for n in names
-    msg += """
-
-      This is a destructive operation and cannot be undone.
-
-      Please confirm that you wish to continue. [Y/N]
-    """
+    msg += "\n\nThis is a destructive operation and cannot be undone."
+    msg += "\n\nPlease confirm that you wish to continue. [Y/N]"
 
   deleteQuestion = (names) -> [
     name: "confirm"
