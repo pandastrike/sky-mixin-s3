@@ -6,8 +6,8 @@ import {cat, isObject, plainText, camelCase, capitalize, empty} from "fairmont"
 
 import warningMsg from "./warning-messages"
 
-process = (config) ->
-  {AWS: {S3: {bucketExists}}} = await Sundog config.region
+process = (_AWS_, config) ->
+  {AWS: {S3: {bucketExists}}} = Sundog _AWS_
 
   _exists = (name) ->
     try

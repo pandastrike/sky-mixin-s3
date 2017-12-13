@@ -1,10 +1,9 @@
 import {resolve} from "path"
 import {Command} from "commander"
-import {read} from "fairmont"
 
 import COMMANDS from './commands'
 
-CLI = (config, argv) ->
+CLI = (AWS, config, argv) ->
   [name, env] = argv
   mixinConfig = config.aws.environments[env].mixins.s3
   program = new Command name
@@ -14,7 +13,7 @@ CLI = (config, argv) ->
     .option '-a, --all', 'Delete all buckets in your mixin list'
     .allowUnknownOption()
     .action (subcommand, name, options) ->
-      bucket = await COMMANDS.bucket config, mixinConfig
+      bucket = await COMMANDS.bucket AWS, config, mixinConfig
       if bucket[subcommand]
         bucket[subcommand] name, options
       else

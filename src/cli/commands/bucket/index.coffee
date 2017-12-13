@@ -5,8 +5,8 @@ import Interview from "panda-interview"
 import msg from "./msg"
 {emptyQuestion, deleteQuestion, noBuckets, badBucket} = msg
 
-Bucket = (config, mixinConfig) ->
-  {AWS: {S3}} = await Sundog config.aws.region
+Bucket = (_AWS_, config, mixinConfig) ->
+  {AWS: {S3}} = Sundog _AWS_
   {bucketExists, bucketTouch, bucketEmpty, bucketDel} = S3
 
   validateOperation = (name, options) ->
