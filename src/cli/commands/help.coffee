@@ -5,6 +5,7 @@ module.exports = """
   Commands:
 
     bucket [subcommand]     Manage your S3 mixin buckets
+      - list (ls)               Lists current status of mixin buckets
       - add [name]              Creates the bucket if it does not exist
       - empty [name]            Deletes all objects within the bucket
       - delete [name]           Deletes the bucket if it exists
