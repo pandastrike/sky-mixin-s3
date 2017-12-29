@@ -3,13 +3,9 @@ additionalProperties: false
 properties:
   buckets:
     description: >
-      List of the names of buckets required by your Sky deployment.  These are created if they do not already exist.  Buckets are created with the
-      DeletionPolicy, Retain.  So, when your deployment is deleted by Sky, that
-      operation is non-destructive to your data.
+      List of buckets specified using this mixin bucket schema.
     type: array
-    uniqueItems: true
-    items:
-      type: string
+    items: {$ref: "#/definitions/bucket"}
 
   tags:
     description: >

@@ -24,7 +24,7 @@ process = (_AWS_, config) ->
 
   {buckets=[], tags} = c
   needed = []
-  needed.push b for b in buckets when !(await _exists b)
+  needed.push b.name for b in buckets when !(await _exists b.name)
 
   # Build out a buckets config array for the CloudFormation template, for
   # buckets that don't already exist.

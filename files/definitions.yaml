@@ -1,0 +1,9 @@
+bucket:
+  description: >
+    This lays out how to specify a single bucket in the S3 mixin
+  type: object
+  additionalProperties: false
+  required: [name]
+  properties:
+    name:
+      type: string

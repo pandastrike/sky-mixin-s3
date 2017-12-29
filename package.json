@@ -1,6 +1,6 @@
 {
   "name": "sky-mixin-s3",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Panda Sky mixin for the AWS service S3.",
   "main": "lib/index.js",
   "files": [
@@ -49,7 +49,7 @@
     "fairmont": "2.0.1",
     "panda-interview": "0.0.1",
     "panda-serialize": "^0.2.0",
-    "panda-sky-mixin": "0.0.2",
+    "panda-sky-mixin": "0.0.3",
     "sundog": "0.0.2"
   }
 }

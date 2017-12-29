@@ -1,5 +1,5 @@
 import Sundog from "sundog"
-import {empty} from "fairmont"
+import {empty, collect, project} from "fairmont"
 import Interview from "panda-interview"
 
 import msg from "./msg"
@@ -12,6 +12,7 @@ Bucket = (_AWS_, config, mixinConfig) ->
   validateOperation = (name, options) ->
     {buckets} = mixinConfig
     noBuckets() if !buckets || empty buckets
+    buckets = collect project "name", buckets
     badBucket() if name && !options.all && name not in buckets
     if options.all then buckets.sort() else [name]
 
