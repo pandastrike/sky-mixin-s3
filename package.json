@@ -1,6 +1,6 @@
 {
   "name": "sky-mixin-s3",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Panda Sky mixin for the AWS service S3.",
   "main": "lib/index.js",
   "files": [
