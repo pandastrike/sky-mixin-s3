@@ -1,18 +1,13 @@
 {
   "name": "sky-mixin-s3",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "Panda Sky mixin for the AWS service S3.",
-  "main": "lib/index.js",
+  "main": "build/npm/src/index.js",
   "files": [
-    "lib/",
-    "files/",
+    "build/npm",
     "LICENSE"
   ],
-  "scripts": {
-    "prepare": "node_modules/.bin/coffee --compile --transpile --inline-map --output lib/ src/",
-    "postpublish": "(json -f package.json version | xargs -I version git tag -am version version) && git push --tags",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pandastrike/sky-mixin-s3.git"
@@ -39,17 +34,16 @@
   },
   "homepage": "https://github.com/pandastrike/sky-mixin-s3#readme",
   "devDependencies": {
-    "babel-core": "6.26.0",
-    "babel-preset-env": "1.6.1",
-    "coffeescript": "2.1.0",
-    "json": "^9.0.6"
+    "panda-9000": "^4.4.0",
+    "panda-builder": "^3.2.1"
   },
   "dependencies": {
     "commander": "^2.12.2",
-    "fairmont": "2.0.1",
     "panda-interview": "0.0.1",
-    "panda-serialize": "^0.2.0",
-    "panda-sky-mixin": "0.0.3",
-    "sundog": "0.0.3"
+    "panda-parchment": "^4.2.0",
+    "panda-quill": "^3.4.5",
+    "panda-river": "^4.4.2",
+    "panda-serialize": "^0.7.0",
+    "sundog": "^4.0.0"
   }
 }

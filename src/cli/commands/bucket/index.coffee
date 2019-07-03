@@ -1,16 +1,17 @@
 import Sundog from "sundog"
-import {empty, collect, project} from "fairmont"
+import {empty} from "panda-parchment"
+import {collect, project} from "panda-river"
 import Interview from "panda-interview"
 
 import msg from "./msg"
 {emptyQuestion, deleteQuestion, noBuckets, badBucket} = msg
 
-Bucket = (_AWS_, config, mixinConfig) ->
-  {AWS: {S3}} = Sundog _AWS_
-  {bucketExists, bucketTouch, bucketEmpty, bucketDel} = S3
+Bucket = (SDK, config) ->
+  {AWS} = Sundog SDK
+  {bucketExists, bucketTouch, bucketEmpty, bucketDel} = AWS.S3()
 
   validateOperation = (name, options) ->
-    {buckets} = mixinConfig
+    {buckets} = config
     noBuckets() if !buckets || empty buckets
     buckets = collect project "name", buckets
     badBucket() if name && !options.all && name not in buckets
