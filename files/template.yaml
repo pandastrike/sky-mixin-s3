@@ -1,12 +1,18 @@
-{{#each buckets}}
-MixinS3Bucket{{resourceTitle}}:
-  Type: "AWS::S3::Bucket"
-  DeletionPolicy: Retain
-  Properties:
-    BucketName: {{name}}
-    Tags:
-    {{#each tags}}
-      - Key: {{Key}}
-        Value: {{Value}}
-    {{/each}}
-{{/each}}
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Panda Sky Mixin - S3
+Resources:
+
+  {{#each buckets}}
+  MixinS3Bucket{{resourceTitle}}:
+    Type: "AWS::S3::Bucket"
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: {{name}}
+      {{#if tags}}
+      Tags:
+      {{#each tags}}
+        - Key: {{Key}}
+          Value: {{Value}}
+      {{/each}}
+      {{/if}}
+  {{/each}}

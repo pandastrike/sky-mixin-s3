@@ -1,6 +1,5 @@
 import Sundog from "sundog"
-import {plainText, camelCase, capitalize, empty} from "panda-parchment"
-import warningMsg from "./warning-messages"
+import {plainText, camelCase, capitalize, isEmpty, merge} from "panda-parchment"
 
 templateCase = (string) -> capitalize camelCase plainText string
 
@@ -10,21 +9,19 @@ preprocess = (SDK, local) ->
   {buckets, tags={}} = local
 
   needed = []
-  for b in buckets
-    unless await bucketExists b.name
-      needed.push b.name
-
-  tags = {Key, Value} for Key, Value of tags
+  for bucket in buckets
+    unless await bucketExists bucket.name
+      needed.push bucket
 
   buckets =
-    if empty needed
-      []
-    else
-      for bucket in needed
-        name: bucket
-        resourceTitle: templateCase bucket
-        tags: tags
+    for bucket in needed
+      name: bucket.name
+      resourceTitle: templateCase bucket.name
+      tags: ({Key, Value} for Key, Value of merge tags, bucket.tags)
 
-  {buckets}
+  if isEmpty buckets
+    false
+  else
+    {buckets}
 
 export default preprocess

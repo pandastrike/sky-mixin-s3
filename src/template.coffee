@@ -11,14 +11,20 @@ ajv = new AJV()
 T = new PandaTemplate()
 
 read = (name) ->
-  yaml await _read resolve __dirname, "..", "files", name
+  await _read resolve __dirname, "..", "..", "..", "files", name
 
 getTemplate = (SDK, local) ->
-  schema = await read "schema.yaml"
-  schema.definitions = await read "definitions.yaml"
+  schema = yaml await read "schema.yaml"
+  schema.definitions = yaml await read "definitions.yaml"
   template = await read "template.yaml"
 
-  unless ajv.validate _schema, await preprocess SDK, local
+  unless ajv.validate schema, local
     console.error toJSON ajv.errors, true
+    throw new Error "failed to validate mixin configuration"
 
-  T.render template, local
+  if config = await preprocess SDK, local
+    T.render template, config
+  else
+    false
+
+export default getTemplate
