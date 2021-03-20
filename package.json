@@ -5,6 +5,7 @@
   "main": "build/npm/src/index.js",
   "files": [
     "build/npm",
+    "files",
     "LICENSE"
   ],
   "scripts": {},
